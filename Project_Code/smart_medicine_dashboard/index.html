@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Medicine Dispenser</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <p class="eyebrow">IoT Prototype</p>
+        <h1>Smart Medicine Dispenser</h1>
+        <p class="subtitle">Temporary dashboard — schedule, ESP32 communication and medicine history</p>
+      </div>
+      <div class="online-badge"><span></span> Dashboard Ready</div>
+    </header>
+
+    <section class="status-grid">
+      <div class="status-card"><span>System</span><strong>ONLINE</strong></div>
+      <div class="status-card"><span>Dashboard Time</span><strong id="currentTime">--:--:--</strong></div>
+      <div class="status-card"><span>Date</span><strong id="currentDate">--/--/----</strong></div>
+      <div class="status-card"><span>Dispenser</span><strong id="dispenserStatus">WAITING</strong></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>ESP32 Connection</h2>
+          <p>Enter the IP shown in the ESP32 Serial Monitor. Laptop and ESP32 must be on the same Wi-Fi.</p>
+        </div>
+      </div>
+      <div class="connection-row">
+        <input id="esp32IP" type="text" placeholder="Example: 192.168.1.50">
+        <button id="testConnectionBtn" class="secondary-btn">Test Connection</button>
+        <button id="syncTimeBtn" class="primary-btn">
+          Sync Time to ESP32
+        </button>
+      </div>
+      <p id="connectionMessage" class="save-message"></p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Medicine Schedule</h2>
+          <p>Configure the eight physical slots. Send each configured slot to the ESP32.</p>
+        </div>
+        <div class="button-group">
+
+          <button id="saveAllBtn" class="secondary-btn">
+            Save Locally
+          </button>
+
+          <button id="sendAllBtn" class="primary-btn">
+            Send All 8 Slots to ESP32
+          </button>
+
+        </div>
+      </div>
+
+      <div class="schedule-grid">
+        <div class="grid-head">Slot</div>
+        <div class="grid-head">Medicine Name</div>
+        <div class="grid-head">Time</div>
+        <div class="grid-head">ESP32</div>
+      </div>
+      <div id="slotRows" class="slot-rows"></div>
+
+      <p id="saveMessage" class="save-message"></p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Test Controls</h2>
+          <p>Temporary controls for dashboard history before full ESP32 status integration.</p>
+        </div>
+      </div>
+      <div class="test-controls">
+        <select id="testSlot"></select>
+        <button id="simulateTaken" class="success-btn">Simulate Taken</button>
+        <button id="simulateMissed" class="danger-btn">Simulate Not Taken</button>
+        <button id="clearHistory" class="secondary-btn">Clear History</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Medicine History</h2>
+          <p>Actual records will later come from the ESP32.</p>
+        </div>
+        <span id="historyCount" class="count-badge">0 records</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Scheduled</th>
+              <th>Slot</th>
+              <th>Medicine</th>
+              <th>Status</th>
+              <th>Taken At</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr>
+              <td colspan="6" class="empty">No medicine records yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
